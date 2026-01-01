@@ -30,7 +30,3 @@ A modern **full-stack e-commerce application** for clothing, built with **React*
 | Styling      | TailwindCSS / Bootstrap |
 | Auth         | JWT |
 | Deployment   | Docker / Nginx |
-
----
-
-## 📂 Project Structure
