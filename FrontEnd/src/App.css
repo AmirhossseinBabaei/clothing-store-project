@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @font-face {
-    font-family: yekan;
-    src: url('assets/fonts/yekan/Yekan.ttf');
+    font-family: sans;
+    src: url('assets/fonts/iran-sans/Iranian\ Sans.ttf');
 }
 body{
-    font-family: yekan;
+    font-family: sans;
     font-weight: bold;
     overflow-x: hidden;
 }

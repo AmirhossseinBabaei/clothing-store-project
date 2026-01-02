@@ -23,7 +23,7 @@ function SelectCategory() {
       <h2 className="text-center text-2xl font-bold mb-8 text-amber-700">
         دسته‌بندی‌ها
       </h2>
-      <div className="w-[300px] mx-auto"> 
+      <div className="w-[700px] mx-auto"> 
         <Swiper
           effect={"cards"}
           grabCursor={true}

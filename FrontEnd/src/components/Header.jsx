@@ -6,15 +6,13 @@ function Header() {
   return (
     <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        {/* Logo */}
         <a href="#" className="text-2xl font-bold text-pink-600">
           فروشگاه لباس
         </a>
 
-        {/* Desktop Menu */}
         <nav className="hidden lg:flex space-x-8 font-medium">
           <div className="relative group">
-          <a href="#" className="text-gray-700 hover:text-pink-600 transition">خانه</a>
+          <a href="/" className="text-gray-700 hover:text-pink-600 transition">خانه</a>
             <button className="text-gray-700 hover:text-pink-600 transition">
               دسته‌بندی‌ها
             </button>
@@ -24,7 +22,7 @@ function Header() {
               <a href="#" className="block px-4 py-2 hover:bg-pink-50">اکسسوری</a>
               <a href="#" className="block px-4 py-2 hover:bg-pink-50">اکسسوری</a>
             </div>
-          <a href="#" className="text-gray-700 hover:text-pink-600 mr-5 ml-5 transition">تماس با ما</a>
+          <a href="/contact-us" className="text-gray-700 hover:text-pink-600 mr-5 ml-5 transition">تماس با ما</a>
           <a href="/products" className="text-gray-700 hover:text-pink-600 transition">محصولات</a>
           </div>
         </nav>
