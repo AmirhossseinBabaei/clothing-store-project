@@ -25,7 +25,7 @@ function Header() {
               <a href="#" className="block px-4 py-2 hover:bg-pink-50">اکسسوری</a>
             </div>
           <a href="#" className="text-gray-700 hover:text-pink-600 mr-5 ml-5 transition">تماس با ما</a>
-          <a href="#" className="text-gray-700 hover:text-pink-600 transition">تخفیف‌ها</a>
+          <a href="/products" className="text-gray-700 hover:text-pink-600 transition">محصولات</a>
           </div>
         </nav>
 
