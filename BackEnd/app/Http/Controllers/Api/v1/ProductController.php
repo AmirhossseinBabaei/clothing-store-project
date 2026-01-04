@@ -21,10 +21,19 @@ class ProductController extends Controller
     {
         $products = ProductResource::collection($this->inquiryService->getAllProducts());
 
+        if (null == $products) {
+            return response()->json(
+                [
+                    "data" => [],
+                    "message" => __('messages.api.product.product_empty')
+                ]
+                , StatusCode::OK->value);
+        }
+
         return response()->json(
             [
                 "data" => $products,
-                "message" => __('messages.api.200')
+                "message" => __('messages.api.product.product_empty')
             ]
             , StatusCode::OK->value);
     }

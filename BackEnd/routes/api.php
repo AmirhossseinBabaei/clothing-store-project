@@ -9,5 +9,6 @@ Route::get('/user', function (Request $request) {
 
 
 Route::prefix('v1')->group(function(){
-    Route::resource('products', \App\Http\Controllers\Api\v1\ProductController::class)->names('api.v1.products');
-});
+    Route::resource('products', \App\Http\Controllers\Api\v1\ProductController::class)->names('products');
+    Route::resource('users', \App\Http\Controllers\Api\v1\UserController::class)->names('users');
+})->name('api.v1');
