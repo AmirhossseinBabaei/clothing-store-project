@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->string('name');
+            $table->string('image', 255);
+
             $table->text('description');
             $table->integer('price');
             $table->enum('status', ['draft' ,'published', 'rejected']);
