@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import Slider from '../components/HeroSlider'
 import "../styles/public.css"
@@ -6,6 +6,7 @@ import AllProducts from '../components/AllProducts'
 import Footer from '../components/Footer'
 
 function Products() {
+
     return (
         <>
             <div className='w-full'>

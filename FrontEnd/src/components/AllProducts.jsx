@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import img1 from "../assets/imgaes/slider/3.jpg";
+import { getAllProduct } from '../api/getAllProduct';
 
 function ProductsPage() {
-  const products = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    name: `محصول ${i + 1}`,
-    price: `${(i + 1) * 10000} تومان`,
-    img: img1,
-  }));
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getAllProduct()
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("خطا در دریافت محصولات:", err);
+        setError("خطا در دریافت محصولات");
+        setLoading(false);
+      });
+  }, []); 
+
+  if (loading) return <div className="text-center p-8">در حال بارگذاری محصولات...</div>;
+  
+  if (error) return <div className="text-center p-8 text-red-500">{error}</div>;
+  
+  if (!products || products.length === 0) return <div className="text-center p-8">محصولی یافت نشد</div>;
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-amber-50 via-white to-amber-100 flex flex-col lg:flex-row">
@@ -20,7 +37,7 @@ function ProductsPage() {
           >
             <div className="overflow-hidden">
               <img
-                src={product.img}
+                src={product.image || product.img || img1} 
                 alt={product.name}
                 className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
               />
@@ -29,7 +46,21 @@ function ProductsPage() {
               <h3 className="text-lg font-bold text-gray-800 mb-2">
                 {product.name}
               </h3>
-              <p className="text-amber-600 font-semibold">{product.price}</p>
+              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                {product.description}
+              </p>
+              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+               دسته بندی : {product.category.name} 
+              </p>
+              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                فروشنده : {product.user.full_name}
+              </p>
+              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                تلفن فروشنده : {product.user.phone}
+              </p>
+              <p className="text-amber-600 font-semibold">
+                {product.price ? `${product.price.toLocaleString()} تومان` : "قیمت نامشخص"}
+              </p>
               <button className="mt-4 w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-2 rounded-lg hover:from-amber-600 hover:to-amber-700 transition-colors duration-300">
                 افزودن به سبد 🛒
               </button>
@@ -38,13 +69,11 @@ function ProductsPage() {
         ))}
       </div>
 
-      {/* بخش فیلترها */}
       <div className="lg:w-1/4 p-8 bg-white shadow-2xl rounded-l-3xl flex flex-col gap-8">
         <h2 className="text-2xl font-bold text-amber-700 border-b pb-3">
           فیلترها
         </h2>
 
-        {/* سرچ */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             جستجو
@@ -56,7 +85,6 @@ function ProductsPage() {
           />
         </div>
 
-        {/* فیلتر قیمت */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             محدوده قیمت

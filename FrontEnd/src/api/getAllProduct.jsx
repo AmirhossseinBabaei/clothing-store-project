@@ -1,0 +1,24 @@
+import axios from "axios";
+
+export async function getAllProduct() {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/api/v1/products");
+        
+        console.log("پاسخ کامل:", response);
+        console.log("دیتا:", response.data);
+        
+        if (response.data && response.data.data) {
+            return response.data.data;
+        } 
+        else if (Array.isArray(response.data)) {
+            return response.data;
+        }
+        else {
+            console.warn("ساختار پاسخ غیرمنتظره:", response.data);
+            return [];
+        }
+    } catch (error) {
+        console.error("خطا در دریافت محصولات:", error);
+        throw error; 
+    }
+}
