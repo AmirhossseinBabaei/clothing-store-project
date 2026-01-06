@@ -5,25 +5,23 @@ namespace App\Http\Controllers\Api\v1;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\UserResource;
-use App\Services\Inquiry\Drivers\UserInquiryDriver;
 use App\Services\Inquiry\UserInquiryService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public UserInquiryService $userInquiry;
+    public UserInquiryService $inquiryService;
 
     public function __construct(
-        UserInquiryService $userInquiry
+        UserInquiryService $inquiryService
     )
     {
-        $this->userInquiry = $userInquiry;
+        $this->inquiryService = $inquiryService;
     }
 
     public function index(): JsonResponse
     {
-        $users = $this->userInquiry->getAllUsers();
+        $users = $this->inquiryService->getAllUsers();
 
         if (null == $users) {
 

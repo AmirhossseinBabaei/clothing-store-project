@@ -18,5 +18,7 @@ Route::prefix('v1')->group(function () {
     Route::get('products/get-four-cheap-products', [\App\Http\Controllers\Api\v1\ProductController::class, 'getTopFourCheapProducts']);
 
     Route::get('users', [\App\Http\Controllers\Api\v1\UserController::class, 'index']);
+
+    Route::get('categories', [\App\Http\Controllers\Api\v1\CategoryController::class, 'index']);
 })->name('api.v1');
 
