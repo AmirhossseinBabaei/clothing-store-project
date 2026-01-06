@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import img1 from "../assets/imgaes/slider/3.jpg";
-import { getAllProduct } from '../api/getAllProduct';
+import { getAllProduct } from '../api/GetAllProduct';
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);

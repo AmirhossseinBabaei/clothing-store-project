@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
+import { GetAllCategories } from "../api/GetAllCategories";
 
 import img1 from "../assets/imgaes/slider/3.jpg";
 
 function SelectCategory() {
-  const categories = [
-    { id: 1, title: "موبایل", link: "/category/mobile" },
-    { id: 2, title: "لپ‌تاپ", link: "/category/laptop" },
-    { id: 3, title: "مد و پوشاک", link: "/category/fashion" },
-    { id: 4, title: "خانه و آشپزخانه", link: "/category/home" },
-    { id: 5, title: "کتاب", link: "/category/book" },
-    { id: 6, title: "ورزش", link: "/category/sport" },
-    { id: 7, title: "زیبایی", link: "/category/beauty" },
-    { id: 8, title: "ابزار", link: "/category/tools" },
-  ];
+
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+     GetAllCategories()
+      .then((data) => {
+        setCategories(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("خطا در دریافت محصولات:", err);
+        setError("خطا در دریافت محصولات");
+        setLoading(false);
+      });
+  }, []); 
 
   return (
     <div className="w-full py-10 bg-gray-50">
@@ -38,12 +46,12 @@ function SelectCategory() {
               <a href={cat.link} className="block">
                 <img
                   src={img1}
-                  alt={cat.title}
+                  alt={cat.name}
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-4 text-center">
                   <h3 className="text-lg font-semibold text-gray-800">
-                    {cat.title}
+                    {cat.name}
                   </h3>
                 </div>
               </a>

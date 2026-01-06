@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/public.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,20 +6,28 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
+import {GetFourCheapProducts} from "../api/GetFourCheapProducts";
 
 import img1 from "../assets/imgaes/slider/1.jpg";
 
 function CheapProducts() {
-  const products = [
-    { id: 1, name: "محصول ۱", price: "120,000", img: img1 },
-    { id: 2, name: "محصول ۲", price: "95,000", img: img1 },
-    { id: 3, name: "محصول ۳", price: "150,000", img: img1 },
-    { id: 4, name: "محصول ۴", price: "80,000", img: img1 },
-    { id: 5, name: "محصول ۵", price: "110,000", img: img1 },
-    { id: 6, name: "محصول ۶", price: "130,000", img: img1 },
-    { id: 7, name: "محصول ۷", price: "70,000", img: img1 },
-    { id: 8, name: "محصول ۸", price: "99,000", img: img1 },
-  ];
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    GetFourCheapProducts()
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("خطا در دریافت محصولات:", err);
+        setError("خطا در دریافت محصولات");
+        setLoading(false);
+      });
+  }, []); 
 
   return (
     <div className="w-full py-10 bg-gradient-to-r from-amber-100 via-white to-amber-50">
@@ -43,7 +51,7 @@ function CheapProducts() {
             <SwiperSlide key={product.id}>
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
                 <img
-                  src={product.img}
+                  src={product.image || img1}
                   alt={product.name}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />

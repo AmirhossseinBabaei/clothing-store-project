@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export async function getAllProduct() {
+export async function GetFourExpensiveProducts() {
     try {
-        const response = await axios.get("http://127.0.0.1:8000/api/v1/products");
-                
+        const response = await axios.get("http://127.0.0.1:8000/api/v1/products/get-four-expensive-products");
+        
         if (response.data && response.data.data) {
             return response.data.data;
         } 
