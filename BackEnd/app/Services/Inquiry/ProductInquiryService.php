@@ -17,4 +17,14 @@ class ProductInquiryService
     {
         return $this->driver->getAllProducts();
     }
+
+    public function getTopExpensiveProducts(int $count): array
+    {
+        return $this->driver->getTopExpensiveProducts(4);
+    }
+
+    public function getTopCheapProducts(int $count): array
+    {
+        return $this->driver->getTopCheapProducts($count);
+    }
 }

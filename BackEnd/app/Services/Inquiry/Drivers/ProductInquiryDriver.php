@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Inquiry\Drivers;
 
 use App\Models\Product;
@@ -14,6 +16,16 @@ class ProductInquiryDriver implements ProductInquiryInterface
 
     public function getProductsByPaginate(int $perPaginate): array
     {
-        return [];
+        return Product::orderBy('id', 'desc')->paginate($perPaginate);
+    }
+
+    public function getTopExpensiveProducts(int $count): array
+    {
+        return Product::orderBy('price', 'desc')->take($count)->get()->all();
+    }
+
+    public function getTopCheapProducts(int $count): array
+    {
+        return Product::orderBy('price', 'asc')->take($count)->get()->all();
     }
 }
