@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\UserResource;
+use App\Models\User;
 use App\Services\Inquiry\UserInquiryService;
 use Illuminate\Http\JsonResponse;
 
