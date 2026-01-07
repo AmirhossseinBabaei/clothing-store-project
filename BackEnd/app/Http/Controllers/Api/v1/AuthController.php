@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\Api\v1\AuthResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +25,7 @@ class AuthController extends Controller
         $userToken = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            "data" => ["user" => $user, "token" => $userToken],
+            "data" => AuthResource::collection(["user" => $user, "token" => $userToken]),
             "message" => __('messages.api.200')
         ], 200);
     }
@@ -50,7 +51,7 @@ class AuthController extends Controller
         $userToken = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            "data" => ["user" => $user, "token" => $userToken],
+            "data" => AuthResource::collection(["user" => $user, "token" => $userToken]),
             "message" => __('messages.api.200')
         ], 200);
     }
