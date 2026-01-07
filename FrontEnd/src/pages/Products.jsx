@@ -17,8 +17,10 @@ function Products() {
                    <div className='slider mx-auto'>
                         <Slider/>
                     </div>
-                    <div className='mx-auto'>
-                        <h2 className='text-center mt-10 font-size-20'>مشاهده محصولات</h2>
+                    <div className='mx-auto mt-8'>
+                        <h2 className='text-center text-4xl font-bold mb-8 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent'>
+                            مشاهده محصولات
+                        </h2>
                         <AllProducts/>
                     </div>
                       <div className='best-sell-product max-auto w-[100vw]'>

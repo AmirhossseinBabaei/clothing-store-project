@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/public.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,9 +30,9 @@ function BestSellProduct() {
   }, []); 
 
   return (
-    <div className="w-full py-10 bg-gradient-to-r from-amber-100 via-white to-amber-50">
-      <h2 className="text-center text-2xl font-bold mb-8 text-amber-700">
-        🌟 محصولات پر فروش 🌟
+    <div className="w-full py-16 bg-gradient-to-br from-pink-50 via-white to-purple-50">
+      <h2 className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+        🌟 محصولات پرفروش 🌟
       </h2>
       <div className="w-[90%] mx-auto">
         <Swiper
@@ -61,9 +62,12 @@ function BestSellProduct() {
                   <p className="text-amber-600 font-bold mb-3">
                     {product.price} تومان
                   </p>
-                  <button className="bg-amber-500 text-black px-4 py-2 rounded-lg shadow hover:bg-amber-600 transition-colors duration-300">
-                    افزودن به سبد 🛒
-                  </button>
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="block bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow hover:from-pink-600 hover:to-purple-700 transition-all duration-300 text-center"
+                  >
+                    مشاهده محصول
+                  </Link>
                 </div>
               </div>
             </SwiperSlide>

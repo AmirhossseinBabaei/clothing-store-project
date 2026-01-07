@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import img1 from "../assets/imgaes/slider/3.jpg";
 import { getAllProduct } from '../api/GetAllProduct';
+import { FiShoppingCart, FiHeart } from "react-icons/fi";
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 10000000 });
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const { addToCart } = useCart();
 
   useEffect(() => {
     getAllProduct()
@@ -18,7 +25,24 @@ function ProductsPage() {
         setError("خطا در دریافت محصولات");
         setLoading(false);
       });
-  }, []); 
+  }, []);
+
+  // فیلتر محصولات
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         product.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesPrice = (!product.price || (product.price >= priceRange.min && product.price <= priceRange.max));
+    const matchesCategory = !selectedCategory || product.category?.name === selectedCategory;
+    return matchesSearch && matchesPrice && matchesCategory;
+  });
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    alert(`${product.name} به سبد خرید اضافه شد!`);
+  };
+
+  // استخراج دسته‌بندی‌های منحصر به فرد
+  const categories = [...new Set(products.map(p => p.category?.name).filter(Boolean))]; 
 
   if (loading) return <div className="text-center p-8">در حال بارگذاری محصولات...</div>;
   
@@ -27,51 +51,87 @@ function ProductsPage() {
   if (!products || products.length === 0) return <div className="text-center p-8">محصولی یافت نشد</div>;
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-r from-amber-50 via-white to-amber-100 flex flex-col lg:flex-row">
+    <div className="w-full min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 flex flex-col lg:flex-row pt-8">
       {/* بخش محصولات */}
-      <div className="lg:w-3/4 p-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
-          >
-            <div className="overflow-hidden">
-              <img
-                src={product.image || product.img || img1} 
-                alt={product.name}
-                className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-5 text-center">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">
-                {product.name}
-              </h3>
-              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                {product.description}
-              </p>
-              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-               دسته بندی : {product.category.name} 
-              </p>
-              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                فروشنده : {product.user.full_name}
-              </p>
-              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                تلفن فروشنده : {product.user.phone}
-              </p>
-              <p className="text-amber-600 font-semibold">
-                {product.price ? `${product.price.toLocaleString()} تومان` : "قیمت نامشخص"}
-              </p>
-              <button className="mt-4 w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-2 rounded-lg hover:from-amber-600 hover:to-amber-700 transition-colors duration-300">
-                افزودن به سبد 🛒
-              </button>
-            </div>
+      <div className="lg:w-3/4 p-8">
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-600"></div>
+            <p className="mt-4 text-gray-600">در حال بارگذاری محصولات...</p>
           </div>
-        ))}
+        ) : error ? (
+          <div className="text-center py-12 text-red-500">{error}</div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">محصولی یافت نشد</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-pink-100"
+              >
+                <Link to={`/product/${product.id}`} className="block">
+                  <div className="overflow-hidden relative">
+                    <img
+                      src={product.image || product.img || img1} 
+                      alt={product.name}
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2 right-2">
+                      <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-pink-500 hover:text-white transition">
+                        <FiHeart className="text-lg" />
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+                <div className="p-5">
+                  <Link to={`/product/${product.id}`}>
+                    <h3 className="text-lg font-bold text-gray-800 mb-2 hover:text-pink-600 transition">
+                      {product.name}
+                    </h3>
+                  </Link>
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                    {product.description}
+                  </p>
+                  {product.category && (
+                    <p className="text-pink-600 text-xs mb-2">
+                      📁 {product.category.name}
+                    </p>
+                  )}
+                  <div className="flex justify-between items-center mb-4">
+                    <p className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                      {product.price ? `${product.price.toLocaleString()} تومان` : "قیمت نامشخص"}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleAddToCart(product);
+                      }}
+                      className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all duration-300"
+                    >
+                      <FiShoppingCart /> افزودن
+                    </button>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="px-4 py-2 border-2 border-pink-500 text-pink-600 rounded-lg hover:bg-pink-50 transition"
+                    >
+                      جزئیات
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="lg:w-1/4 p-8 bg-white shadow-2xl rounded-l-3xl flex flex-col gap-8">
-        <h2 className="text-2xl font-bold text-amber-700 border-b pb-3">
-          فیلترها
+      <div className="lg:w-1/4 p-6 bg-white/90 backdrop-blur-xl shadow-2xl rounded-l-3xl flex flex-col gap-6 sticky top-20 h-fit">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent border-b border-pink-200 pb-3">
+          🔍 فیلترها
         </h2>
 
         <div>
@@ -80,8 +140,10 @@ function ProductsPage() {
           </label>
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="نام یا برند محصول..."
-            className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+            className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
           />
         </div>
 
@@ -89,20 +151,22 @@ function ProductsPage() {
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             محدوده قیمت
           </label>
-          <div className="flex gap-3 mb-2">
+          <div className="flex gap-2 mb-2">
             <input
               type="number"
+              value={priceRange.min || ""}
+              onChange={(e) => setPriceRange({...priceRange, min: parseInt(e.target.value) || 0})}
               placeholder="حداقل"
-              className="w-1/2 border rounded-lg px-3 py-2"
+              className="w-1/2 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
             <input
               type="number"
+              value={priceRange.max || ""}
+              onChange={(e) => setPriceRange({...priceRange, max: parseInt(e.target.value) || 10000000})}
               placeholder="حداکثر"
-              className="w-1/2 border rounded-lg px-3 py-2"
+              className="w-1/2 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
           </div>
-          <input type="range" min="0" max="500000" className="w-full accent-amber-500" />
-          <p className="text-sm text-gray-600 mt-1">تا 500,000 تومان</p>
         </div>
 
         {/* دسته‌بندی */}
@@ -110,48 +174,28 @@ function ProductsPage() {
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             دسته‌بندی‌ها
           </label>
-          <div className="flex flex-col gap-2">
-            {["موبایل", "لپ‌تاپ", "مد و پوشاک", "خانه", "کتاب"].map((cat, i) => (
-              <label key={i} className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="accent-amber-500" />
-                <span>{cat}</span>
-              </label>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="">همه دسته‌بندی‌ها</option>
+            {categories.map((cat, i) => (
+              <option key={i} value={cat}>{cat}</option>
             ))}
-          </div>
-        </div>
-
-        {/* فیلتر امتیاز */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            امتیاز کاربران
-          </label>
-          <div className="flex gap-2">
-            {[5, 4, 3].map((stars) => (
-              <button
-                key={stars}
-                className="px-3 py-1 border rounded-lg hover:bg-amber-100 transition"
-              >
-                {stars} ⭐
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* برند */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            برندها
-          </label>
-          <select className="w-full border rounded-lg px-3 py-2">
-            <option>انتخاب کنید</option>
-            <option>سامسونگ</option>
-            <option>اپل</option>
-            <option>شیائومی</option>
-            <option>دل</option>
-            <option>اچ‌پی</option>
           </select>
-          <button className="text-black mt-10 float-right box-border border-4">اعمال فیلتر</button>
         </div>
+
+        <button
+          onClick={() => {
+            setSearchQuery("");
+            setPriceRange({ min: 0, max: 10000000 });
+            setSelectedCategory("");
+          }}
+          className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 rounded-xl hover:from-pink-600 hover:to-purple-700 transition-all duration-300 mt-4"
+        >
+          پاک کردن فیلترها
+        </button>
       </div>
     </div>
   );

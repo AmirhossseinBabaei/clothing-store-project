@@ -27,9 +27,9 @@ function SelectCategory() {
   }, []); 
 
   return (
-    <div className="w-full py-10 bg-gray-50">
-      <h2 className="text-center text-2xl font-bold mb-8 text-amber-700">
-        دسته‌بندی‌ها
+    <div className="w-full py-16 bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <h2 className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        🏷️ دسته‌بندی‌ها
       </h2>
       <div className="w-[700px] mx-auto"> 
         <Swiper
