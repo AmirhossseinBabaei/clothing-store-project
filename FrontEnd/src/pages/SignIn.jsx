@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 function SignIn() {
-  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const { login, loading } = useAuth()
@@ -13,12 +13,12 @@ function SignIn() {
     e.preventDefault()
     setError('')
 
-    if (!email || !password) {
+    if (!phone || !password) {
       setError('لطفا تمام فیلدها را پر کنید')
       return
     }
 
-    const result = await login(email, password)
+    const result = await login(phone, password)
     
     if (result.success) {
       navigate('/dashboard')
@@ -51,19 +51,21 @@ function SignIn() {
 
               {/* فرم */}
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* ایمیل */}
+                {/* شماره تلفن */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    ایمیل
+                    شماره تلفن
                   </label>
                   <input
-                    type="email"
-                    placeholder="example@mail.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="tel"
+                    placeholder="09123456789"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
                     required
                     disabled={loading}
+                    pattern="[0-9]{11}"
+                    maxLength="11"
                   />
                 </div>
 

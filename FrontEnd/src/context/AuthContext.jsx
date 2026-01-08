@@ -27,17 +27,20 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  const login = async (email, password) => {
+  const login = async (phone, password) => {
     setLoading(true);
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/v1/login', {
-        email,
+        phone,
         password,
       });
 
-      if (response.data && response.data.token) {
-        const newToken = response.data.token;
-        const userData = response.data.user || { email };
+      // ساختار response: { data: { user: {...}, token: "..." }, message: "..." }
+      const responseData = response.data?.data;
+      
+      if (responseData && responseData.token) {
+        const newToken = responseData.token;
+        const userData = responseData.user || { phone };
         
         setToken(newToken);
         setUser(userData);
@@ -50,11 +53,13 @@ export const AuthProvider = ({ children }) => {
         return { success: true };
       } else {
         setLoading(false);
-        return { success: false, error: 'توکن دریافت نشد' };
+        console.error('Response structure:', response.data);
+        return { success: false, error: 'توکن دریافت نشد. ساختار پاسخ نامعتبر است.' };
       }
     } catch (error) {
       setLoading(false);
-      const errorMessage = error.response?.data?.message || error.response?.data?.error || 'خطا در ورود';
+      console.error('Login error:', error);
+      const errorMessage = error.response?.data?.message || error.response?.data?.error || error.message || 'خطا در ورود';
       return { success: false, error: errorMessage };
     }
   };
@@ -64,9 +69,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/v1/register', formData);
 
-      if (response.data && response.data.token) {
-        const newToken = response.data.token;
-        const userData = response.data.user || formData;
+      // ساختار response: { data: { user: {...}, token: "..." }, message: "..." }
+      const responseData = response.data?.data;
+
+      if (responseData && responseData.token) {
+        const newToken = responseData.token;
+        const userData = responseData.user || formData;
         
         setToken(newToken);
         setUser(userData);
@@ -79,11 +87,13 @@ export const AuthProvider = ({ children }) => {
         return { success: true };
       } else {
         setLoading(false);
-        return { success: false, error: 'توکن دریافت نشد' };
+        console.error('Response structure:', response.data);
+        return { success: false, error: 'توکن دریافت نشد. ساختار پاسخ نامعتبر است.' };
       }
     } catch (error) {
       setLoading(false);
-      const errorMessage = error.response?.data?.message || error.response?.data?.error || 'خطا در ثبت‌نام';
+      console.error('Register error:', error);
+      const errorMessage = error.response?.data?.message || error.response?.data?.error || error.message || 'خطا در ثبت‌نام';
       return { success: false, error: errorMessage };
     }
   };
