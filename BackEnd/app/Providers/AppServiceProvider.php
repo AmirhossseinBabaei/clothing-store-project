@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\Inquiry\Drivers\AuthInquiryDriver;
 use App\Services\Inquiry\Drivers\CategoryInquiryDriver;
 use App\Services\Inquiry\Drivers\ProductInquiryDriver;
 use App\Services\Inquiry\Drivers\UserInquiryDriver;
+use App\Services\Inquiry\Interfaces\AuthInquiryInterface;
 use App\Services\Inquiry\Interfaces\CategoryInquiryInterface;
 use App\Services\Inquiry\Interfaces\ProductInquiryInterface;
 use App\Services\Inquiry\Interfaces\UserInquiryInterface;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductInquiryInterface::class, ProductInquiryDriver::class);
         $this->app->bind(UserInquiryInterface::class, UserInquiryDriver::class);
         $this->app->bind(CategoryInquiryInterface::class, CategoryInquiryDriver::class);
+        $this->app->bind(AuthInquiryInterface::class, AuthInquiryDriver::class);
     }
 
     /**

@@ -81,4 +81,9 @@ class ProductController extends Controller
             ]
             , StatusCode::OK->value);
     }
+
+    public function getProductsCount()
+    {
+
+    }
 }

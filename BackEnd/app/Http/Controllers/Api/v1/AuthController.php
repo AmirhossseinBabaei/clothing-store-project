@@ -1,30 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\Api\v1\AuthResource;
-use App\Models\User;
+use App\Services\Inquiry\AuthInquiryService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public AuthInquiryService $inquiryService;
+
+    public function __construct(
+        AuthInquiryService $inquiryService
+    )
+    {
+        $this->inquiryService = $inquiryService;
+    }
+
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = User::where('phone', $request->phone)->first();
+        $user = $this->inquiryService->login($request);
 
-        if (!$user || !Hash::check($request->password, $user->password_hash)) {
+        if (null == $user->token) {
+
             return response()->json([
-                "message" => __('messages.api.response.auth.invalid_password')
+                "data" => [],
+                "message" => __('messages.api.status_code.500')
             ], 500);
+
         }
-
-        $userToken = $user->createToken('authToken')->plainTextToken;
-
-        $user->token = $userToken;
 
         return response()->json([
             "data" => new AuthResource($user),
@@ -34,21 +43,16 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
+        $user = $this->inquiryService->register($request->validated());
 
-        $passwordHash = Hash::make($request->password_hash);
+        if (null == $user->token) {
 
-        $data['password_hash'] = $passwordHash;
-
-        $user = User::create($data);
-
-        if (null == $user) {
             return response()->json([
+                "data" => [],
                 "message" => __('messages.api.status_code.500')
             ], 500);
-        }
 
-        $user->tokeny = $user->createToken('authToken')->plainTextToken;
+        }
 
         return response()->json([
             "data" => new AuthResource($user),
