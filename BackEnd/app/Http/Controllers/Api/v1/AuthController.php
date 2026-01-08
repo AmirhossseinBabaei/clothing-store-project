@@ -8,9 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\Api\v1\AuthResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -28,10 +26,8 @@ class AuthController extends Controller
 
         $user->token = $userToken;
 
-//        dd($user->token = "hello");
-
         return response()->json([
-            "data" => AuthResource::collection([$user]),
+            "data" => new AuthResource($user),
             "message" => __('messages.api.status_code.200')
         ], 200);
     }
@@ -52,10 +48,10 @@ class AuthController extends Controller
             ], 500);
         }
 
-        $user->token = $user->createToken('authToken')->plainTextToken;
+        $user->tokeny = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            "data" => AuthResource::collection([$user]),
+            "data" => new AuthResource($user),
             "message" => __('messages.api.status_code.200')
         ], 200);
     }
