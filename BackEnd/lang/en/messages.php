@@ -27,6 +27,9 @@ return [
             ],
             "product" => [
                 "product_empty" => 'the products table is empty.'
+            ],
+            'auth' => [
+                'invalid_password' => 'the password is incorrect, please try again later'
             ]
         ]
     ]

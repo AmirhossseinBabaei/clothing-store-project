@@ -7,36 +7,40 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\Api\v1\AuthResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
-        $user = User::where('phone', $request->email)->first();
+        $user = User::where('phone', $request->phone)->first();
 
         if (!$user || !Hash::check($request->password, $user->password_hash)) {
             return response()->json([
-                "message" => __('messages.api.201')
-            ], 201);
+                "message" => __('messages.api.response.auth.invalid_password')
+            ], 500);
         }
 
         $userToken = $user->createToken('authToken')->plainTextToken;
 
+        $user->token = $userToken;
+
+//        dd($user->token = "hello");
+
         return response()->json([
-            "data" => AuthResource::collection(["user" => $user, "token" => $userToken]),
-            "message" => __('messages.api.200')
+            "data" => AuthResource::collection([$user]),
+            "message" => __('messages.api.status_code.200')
         ], 200);
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        $hash = $request->phone . $request->full_name . time();
-
-        $passwordHash = Hash::make($hash);
+        $passwordHash = Hash::make($request->password_hash);
 
         $data['password_hash'] = $passwordHash;
 
@@ -44,15 +48,15 @@ class AuthController extends Controller
 
         if (null == $user) {
             return response()->json([
-                "message" => __('messages.api.500')
+                "message" => __('messages.api.status_code.500')
             ], 500);
         }
 
-        $userToken = $user->createToken('authToken')->plainTextToken;
+        $user->token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            "data" => AuthResource::collection(["user" => $user, "token" => $userToken]),
-            "message" => __('messages.api.200')
+            "data" => AuthResource::collection([$user]),
+            "message" => __('messages.api.status_code.200')
         ], 200);
     }
 }

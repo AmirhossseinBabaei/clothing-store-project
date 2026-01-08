@@ -158,7 +158,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $name,
                 'image' => $sampleImages[$i % count($sampleImages)],
                 'description' => $this->generateDescription($faker),
-                'price' => $faker->numberBetween(100000, 10000000), // قیمت بین 100 هزار تا 10 میلیون
+                'price' => $faker->numberBetween(100000, 10000000),
                 'status' => $faker->randomElement($statuses),
                 'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
                 'updated_at' => now(),
