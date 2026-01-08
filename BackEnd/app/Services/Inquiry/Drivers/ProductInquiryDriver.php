@@ -28,4 +28,9 @@ class ProductInquiryDriver implements ProductInquiryInterface
     {
         return Product::orderBy('price', 'asc')->take($count)->get()->all();
     }
+
+    public function getProductsCount(): int
+    {
+        return Product::count();
+    }
 }

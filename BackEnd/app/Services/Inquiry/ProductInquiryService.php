@@ -29,4 +29,9 @@ class ProductInquiryService
     {
         return $this->driver->getTopCheapProducts($count);
     }
+
+    public function getProductsCount(): int
+    {
+        return $this->driver->getProductsCount();
+    }
 }

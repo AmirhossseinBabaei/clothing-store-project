@@ -13,7 +13,7 @@ Route::prefix('v1')->group(function () {
     //Getting four expensive products
     Route::get('products/get-four-expensive-products', [\App\Http\Controllers\Api\v1\ProductController::class, 'getTopFourExpensiveProducts']);
 
-    //Getting four cheap products
+    //getting four cheap products
     Route::get('products/get-four-cheap-products', [\App\Http\Controllers\Api\v1\ProductController::class, 'getTopFourCheapProducts']);
 
     Route::get('users', [\App\Http\Controllers\Api\v1\UserController::class, 'index']);
@@ -21,9 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::get('categories', [\App\Http\Controllers\Api\v1\CategoryController::class, 'index']);
 
     Route::middleware('auth:sanctum')->prefix('dashboard')->group(function (){
-        Route::post('products', function(){
-            return "welcome to my home!";
-        });
+        Route::get('products/get-products-count', [\App\Http\Controllers\Api\v1\ProductController::class, 'getProductsCount']);
     });
 
     Route::post('register', [\App\Http\Controllers\Api\v1\AuthController::class, 'register'])->name('register');

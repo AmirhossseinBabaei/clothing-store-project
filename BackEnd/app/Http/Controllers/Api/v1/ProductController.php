@@ -82,8 +82,15 @@ class ProductController extends Controller
             , StatusCode::OK->value);
     }
 
-    public function getProductsCount()
+    public function getProductsCount(): JsonResponse
     {
+        $count = $this->inquiryService->getProductsCount();
 
+        return response()->json(
+            [
+                "data" => ['count' => $count],
+                "message" => __('messages.api.status_code.200')
+            ]
+            , StatusCode::OK->value);
     }
 }
