@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\v1;
 
 use App\Enums\StatusCode;
@@ -36,6 +38,17 @@ class UserController extends Controller
         return response()->json(
             [
                 "data" => UserResource::collection($users),
+                "message" => __('messages.api.status_code.200')
+            ], StatusCode::OK->value);
+    }
+
+    public function getUsersCount(): JsonResponse
+    {
+        $count = $this->inquiryService->getUsersCount();
+
+        return response()->json(
+            [
+                "data" => ['count' => $count],
                 "message" => __('messages.api.status_code.200')
             ], StatusCode::OK->value);
     }

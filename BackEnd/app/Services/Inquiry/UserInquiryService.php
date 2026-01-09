@@ -21,4 +21,9 @@ class UserInquiryService
     {
         return $this->driver->getAllUsers();
     }
+
+    public function getUsersCount(): int
+    {
+        return $this->driver->getUsersCount();
+    }
 }

@@ -2,30 +2,39 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\ProductController;
+use App\Http\Controllers\Api\v1\CategoryController;
+use App\Http\Controllers\Api\v1\UserController;
+use App\Http\Controllers\Api\v1\ContactController;
 
 Route::get('user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 Route::prefix('v1')->group(function () {
-    Route::get('products', [\App\Http\Controllers\Api\v1\ProductController::class, 'index']);
+//    Authentication Routes
+    Route::post('register', [AuthController::class, 'register'])->name('register');
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+//    --------------------
 
-    //Getting four expensive products
-    Route::get('products/get-four-expensive-products', [\App\Http\Controllers\Api\v1\ProductController::class, 'getTopFourExpensiveProducts']);
+//    Website Data Routes
+//    Products
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('products/get-four-expensive-products', [ProductController::class, 'getTopFourExpensiveProducts']);
+    Route::get('products/get-four-cheap-products', [ProductController::class, 'getTopFourCheapProducts']);
+//    Categories
+    Route::get('categories', [CategoryController::class, 'index']);
+// ------------
 
-    //getting four cheap products
-    Route::get('products/get-four-cheap-products', [\App\Http\Controllers\Api\v1\ProductController::class, 'getTopFourCheapProducts']);
-
-    Route::get('users', [\App\Http\Controllers\Api\v1\UserController::class, 'index']);
-
-    Route::get('categories', [\App\Http\Controllers\Api\v1\CategoryController::class, 'index']);
-
-    Route::middleware('auth:sanctum')->prefix('dashboard')->group(function (){
-        Route::get('products/get-products-count', [\App\Http\Controllers\Api\v1\ProductController::class, 'getProductsCount']);
+//    Dashboard Routes
+    Route::middleware('auth:sanctum')->prefix('dashboard')->group(function () {
+//        Products
+        Route::get('products/get-products-count', [ProductController::class, 'getProductsCount']);
+//        Users
+        Route::get('users/get-users-count', [UserController::class, 'getUsersCount']);
+        Route::get('users', [UserController::class, 'index']);
+//        Contacts
+        Route::get('contacts/get-contacts-count', [ContactController::class, 'getContactCount']);
     });
-
-    Route::post('register', [\App\Http\Controllers\Api\v1\AuthController::class, 'register'])->name('register');
-
-    Route::post('login', [\App\Http\Controllers\Api\v1\AuthController::class, 'login'])->name('login');
 })->name('api.v1');
-

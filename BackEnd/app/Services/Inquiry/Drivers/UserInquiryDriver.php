@@ -18,4 +18,9 @@ class UserInquiryDriver implements UserInquiryInterface
     {
         return [];
     }
+
+    public function getUsersCount(): int
+    {
+        return User::count();
+    }
 }

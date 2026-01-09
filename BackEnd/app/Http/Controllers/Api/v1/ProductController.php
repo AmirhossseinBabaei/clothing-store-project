@@ -84,6 +84,7 @@ class ProductController extends Controller
 
     public function getProductsCount(): JsonResponse
     {
+        // the question: why me use a method for get products count? why me in this method get products count and return its?
         $count = $this->inquiryService->getProductsCount();
 
         return response()->json(
