@@ -31,6 +31,9 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->prefix('dashboard')->group(function () {
 //        Products
         Route::get('products/get-products-count', [ProductController::class, 'getProductsCount']);
+        Route::post('products/create-product', [ProductController::class, 'createProduct']);
+        Route::post('products/{id}/update-product', [ProductController::class, 'updateProduct']);
+        Route::post('products/{id}/delete-product', [ProductController::class, 'destroyProduct']);
 //        Users
         Route::get('users/get-users-count', [UserController::class, 'getUsersCount']);
         Route::get('users', [UserController::class, 'index']);

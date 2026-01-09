@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -31,7 +32,7 @@ class AuthController extends Controller
             return response()->json([
                 "data" => [],
                 "message" => __('messages.api.status_code.500')
-            ], 500);
+            ], StatusCode::INTERNAL_SERVER_ERROR->value);
 
         }
 
@@ -50,13 +51,13 @@ class AuthController extends Controller
             return response()->json([
                 "data" => [],
                 "message" => __('messages.api.status_code.500')
-            ], 500);
+            ], StatusCode::INTERNAL_SERVER_ERROR->value);
 
         }
 
         return response()->json([
             "data" => new AuthResource($user),
             "message" => __('messages.api.status_code.200')
-        ], 200);
+        ], StatusCode::INTERNAL_SERVER_ERROR->value);
     }
 }

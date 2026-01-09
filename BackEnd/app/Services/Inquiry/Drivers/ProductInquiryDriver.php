@@ -19,6 +19,23 @@ class ProductInquiryDriver implements ProductInquiryInterface
         return Product::orderBy('id', 'desc')->paginate($perPaginate);
     }
 
+    public function createProduct(array $data): Product
+    {
+        return Product::create($data);
+    }
+
+    public function updateProduct(int $id, array $data): Product
+    {
+        return Product::where('id', $id)->first()->update($data);
+    }
+
+    public function destroyProduct(int $id): bool
+    {
+        $product = Product::where('id', $id)->first() ?? null;
+        
+        return $product ? $product->delete() : false;
+    }
+
     public function getTopExpensiveProducts(int $count): array
     {
         return Product::orderBy('price', 'desc')->take($count)->get()->all();

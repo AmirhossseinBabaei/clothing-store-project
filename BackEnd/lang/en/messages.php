@@ -23,13 +23,16 @@ return [
         ],
         "response" => [
             "user" => [
-                "users_empty" => 'the users table is empty.'
+                "users_empty" => 'The users table is empty'
             ],
             "product" => [
-                "product_empty" => 'the products table is empty.'
+                "product_empty" => 'The products table is empty',
+                'create_successfully_product' => 'The product created successFully!',
+                'update_successfully_product' => 'The product updated successFully!',
+                'destroy_successfully_product' => 'The product deleted successFully!'
             ],
             'auth' => [
-                'invalid_password' => 'the password is incorrect, please try again later'
+                'invalid_password' => 'The password is incorrect, please try again later'
             ]
         ]
     ]

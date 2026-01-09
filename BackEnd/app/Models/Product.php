@@ -13,8 +13,8 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'status',
-        'img'
+        'image',
+        'status'
     ];
 
     public function user(): BelongsTo
