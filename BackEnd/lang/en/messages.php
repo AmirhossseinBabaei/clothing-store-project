@@ -31,6 +31,12 @@ return [
                 'update_successfully_product' => 'The product updated successFully!',
                 'destroy_successfully_product' => 'The product deleted successFully!'
             ],
+            "slider" => [
+                "slider_empty" => 'The slider table is empty',
+                'create_successfully_slider' => 'The slider created successFully!',
+                'update_successfully_slider' => 'The slider updated successFully!',
+                'destroy_successfully_slider' => 'The slider deleted successFully!'
+            ],
             'auth' => [
                 'invalid_password' => 'The password is incorrect, please try again later'
             ]

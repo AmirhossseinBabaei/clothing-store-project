@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\v1\ProductController;
 use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\ContactController;
+use App\Http\Controllers\Api\v1\SliderController;
 
 Route::get('user', function (Request $request) {
     return $request->user();
@@ -34,9 +35,14 @@ Route::prefix('v1')->group(function () {
         Route::post('products/create-product', [ProductController::class, 'createProduct']);
         Route::post('products/{id}/update-product', [ProductController::class, 'updateProduct']);
         Route::post('products/{id}/delete-product', [ProductController::class, 'destroyProduct']);
+//        Sliders
+        Route::get('sliders', [SliderController::class, 'index']);
+        Route::post('sliders/create-slider', [SliderController::class, 'createSlider']);
+        Route::post('sliders/{id}/update-slider', [SliderController::class, 'updateSlider']);
+        Route::post('sliders/{id}/delete-slider', [SliderController::class, 'destroySlider']);
 //        Users
-        Route::get('users/get-users-count', [UserController::class, 'getUsersCount']);
         Route::get('users', [UserController::class, 'index']);
+        Route::get('users/get-users-count', [UserController::class, 'getUsersCount']);
 //        Contacts
         Route::get('contacts/get-contacts-count', [ContactController::class, 'getContactCount']);
     });

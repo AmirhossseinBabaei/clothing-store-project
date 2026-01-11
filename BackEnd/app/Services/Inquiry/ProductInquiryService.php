@@ -26,7 +26,7 @@ class ProductInquiryService
         return $this->driver->createProduct($data);
     }
 
-    public function updateProduct(int $id, array $data): Product
+    public function updateProduct(int $id, array $data)
     {
         return $this->driver->updateProduct($id, $data);
     }

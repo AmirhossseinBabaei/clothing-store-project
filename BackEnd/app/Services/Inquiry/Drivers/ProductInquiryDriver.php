@@ -24,15 +24,19 @@ class ProductInquiryDriver implements ProductInquiryInterface
         return Product::create($data);
     }
 
-    public function updateProduct(int $id, array $data): Product
+    public function updateProduct(int $id, array $data)
     {
-        return Product::where('id', $id)->first()->update($data);
+        $product = Product::where('id', $id)->first() ?? null;
+
+       $productStatus = $product ? $product->update($data) : null;
+
+       return $productStatus ? $product : null;
     }
 
     public function destroyProduct(int $id): bool
     {
         $product = Product::where('id', $id)->first() ?? null;
-        
+
         return $product ? $product->delete() : false;
     }
 

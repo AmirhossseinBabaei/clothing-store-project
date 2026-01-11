@@ -12,7 +12,7 @@ public function getProductsByPaginate(int $perPaginate): array;
 
 public function createProduct(array $data): Product;
 
-public function updateProduct(int $id, array $data): Product;
+public function updateProduct(int $id, array $data);
 
 public function destroyProduct(int $id): bool;
 }
