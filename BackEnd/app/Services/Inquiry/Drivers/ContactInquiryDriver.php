@@ -12,9 +12,9 @@ class ContactInquiryDriver implements ContactInquiryInterface
         return Contact::all();
     }
 
-    public function getContactsByPaginate(int $perPaginate): array
+    public function getContactsByPaginate(int $paginate): array
     {
-        return [];
+        return Contact::orderBy('id', 'desc')->paginate($paginate)->all();
     }
 
     public function getContactsCount(): int

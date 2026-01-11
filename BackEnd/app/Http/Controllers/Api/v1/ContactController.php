@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Enums\StatusCode;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\v1\ContactResource;
 use App\Services\Inquiry\ContactInquiryService;
 use Illuminate\Http\JsonResponse;
 
@@ -27,6 +28,27 @@ class ContactController extends Controller
         return response()->json(
             [
                 "data" => ['count' => $count],
+                "message" => __('messages.api.status_code.200')
+            ]
+            , StatusCode::OK->value);
+    }
+
+    public function index(): JsonResponse
+    {
+        $categories = $this->inquiryService->getContactsByPaginate(10);
+
+        if (null == $categories) {
+            return response()->json(
+                [
+                    "data" => [],
+                    "message" => __('messages.api.product.product_empty')
+                ]
+                , StatusCode::OK->value);
+        }
+
+        return response()->json(
+            [
+                "data" => ContactResource::collection($categories),
                 "message" => __('messages.api.status_code.200')
             ]
             , StatusCode::OK->value);

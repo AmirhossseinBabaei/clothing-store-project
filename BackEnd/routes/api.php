@@ -48,5 +48,6 @@ Route::prefix('v1')->group(function () {
         Route::post('users/{id}/delete-user', [UserController::class, 'destroyUser']);
 //        Contacts
         Route::get('contacts/get-contacts-count', [ContactController::class, 'getContactCount']);
+        Route::get('contacts', [ContactController::class, 'index']);
     });
 })->name('api.v1');
