@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Inquiry;
 
+use App\Models\User;
 use App\Services\Inquiry\Interfaces\UserInquiryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class UserInquiryService
 {
@@ -25,5 +27,22 @@ class UserInquiryService
     public function getUsersCount(): int
     {
         return $this->driver->getUsersCount();
+    }
+
+    public function createUser(array $data): User
+    {
+        $data['password_hash'] = Hash::make($data['password_hash']);
+
+        return $this->driver->createUser($data);
+    }
+
+    public function updateUser(int $id, array $data)
+    {
+        return $this->driver->updateUser($id, $data);
+    }
+
+    public function destroyUser(int $id): bool
+    {
+        return $this->driver->destroyUser($id);
     }
 }

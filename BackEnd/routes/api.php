@@ -43,6 +43,9 @@ Route::prefix('v1')->group(function () {
 //        Users
         Route::get('users', [UserController::class, 'index']);
         Route::get('users/get-users-count', [UserController::class, 'getUsersCount']);
+        Route::post('users/create-user', [UserController::class, 'createUser']);
+        Route::post('users/{id}/update-user', [UserController::class, 'updateUser']);
+        Route::post('users/{id}/delete-user', [UserController::class, 'destroyUser']);
 //        Contacts
         Route::get('contacts/get-contacts-count', [ContactController::class, 'getContactCount']);
     });

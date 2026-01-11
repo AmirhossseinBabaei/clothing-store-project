@@ -23,7 +23,10 @@ return [
         ],
         "response" => [
             "user" => [
-                "users_empty" => 'The users table is empty'
+                "users_empty" => 'The users table is empty',
+                'create_successfully_user' => 'The user created successFully!',
+                'update_successfully_user' => 'The user updated successFully!',
+                'destroy_successfully_user' => 'The user deleted successFully!'
             ],
             "product" => [
                 "product_empty" => 'The products table is empty',
