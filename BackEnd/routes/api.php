@@ -46,6 +46,10 @@ Route::prefix('v1')->group(function () {
         Route::post('users/create-user', [UserController::class, 'createUser']);
         Route::post('users/{id}/update-user', [UserController::class, 'updateUser']);
         Route::post('users/{id}/delete-user', [UserController::class, 'destroyUser']);
+//        Categories
+        Route::post('categories/create-category', [UserController::class, 'createCategory']);
+        Route::post('categories/{id}/update-category', [UserController::class, 'updateCategory']);
+        Route::post('categories/{id}/delete-category', [UserController::class, 'destroyCategory']);
 //        Contacts
         Route::get('contacts/get-contacts-count', [ContactController::class, 'getContactCount']);
         Route::get('contacts', [ContactController::class, 'index']);

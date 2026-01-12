@@ -46,6 +46,12 @@ return [
                 'update_successfully_contact' => 'The contact updated successFully!',
                 'destroy_successfully_contact' => 'The contact deleted successFully!'
             ],
+            "category" => [
+                "category_empty" => 'The category table is empty',
+                'create_successfully_category' => 'The category created successFully!',
+                'update_successfully_category' => 'The category updated successFully!',
+                'destroy_successfully_category' => 'The category deleted successFully!'
+            ],
             'auth' => [
                 'invalid_password' => 'The password is incorrect, please try again later'
             ]
