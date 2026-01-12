@@ -40,6 +40,12 @@ return [
                 'update_successfully_slider' => 'The slider updated successFully!',
                 'destroy_successfully_slider' => 'The slider deleted successFully!'
             ],
+            "contact" => [
+                "contact_empty" => 'The contact table is empty',
+                'create_successfully_contact' => 'The contact created successFully!',
+                'update_successfully_contact' => 'The contact updated successFully!',
+                'destroy_successfully_contact' => 'The contact deleted successFully!'
+            ],
             'auth' => [
                 'invalid_password' => 'The password is incorrect, please try again later'
             ]

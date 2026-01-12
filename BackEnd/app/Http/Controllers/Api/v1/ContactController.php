@@ -35,20 +35,20 @@ class ContactController extends Controller
 
     public function index(): JsonResponse
     {
-        $categories = $this->inquiryService->getContactsByPaginate(10);
+        $contacts = $this->inquiryService->getContactsByPaginate(10);
 
-        if (null == $categories) {
+        if (null == $contacts) {
             return response()->json(
                 [
                     "data" => [],
-                    "message" => __('messages.api.product.product_empty')
+                    "message" => __('messages.api.contact.contact_empty')
                 ]
                 , StatusCode::OK->value);
         }
 
         return response()->json(
             [
-                "data" => ContactResource::collection($categories),
+                "data" => ContactResource::collection($contacts),
                 "message" => __('messages.api.status_code.200')
             ]
             , StatusCode::OK->value);
