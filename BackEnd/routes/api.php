@@ -26,6 +26,8 @@ Route::prefix('v1')->group(function () {
     Route::get('products/get-four-cheap-products', [ProductController::class, 'getTopFourCheapProducts']);
 //    Categories
     Route::get('categories', [CategoryController::class, 'index']);
+//    Sliders
+    Route::get('sliders', [SliderController::class, 'index']);
 // ------------
 
 //    Dashboard Routes
@@ -36,7 +38,6 @@ Route::prefix('v1')->group(function () {
         Route::post('products/{id}/update-product', [ProductController::class, 'updateProduct']);
         Route::post('products/{id}/delete-product', [ProductController::class, 'destroyProduct']);
 //        Sliders
-        Route::get('sliders', [SliderController::class, 'index']);
         Route::post('sliders/create-slider', [SliderController::class, 'createSlider']);
         Route::post('sliders/{id}/update-slider', [SliderController::class, 'updateSlider']);
         Route::post('sliders/{id}/delete-slider', [SliderController::class, 'destroySlider']);
