@@ -1,8 +1,9 @@
 import React from 'react'
+import axios from "axios";
 
-export async function getAllSliders() {
+export async function GetAllSliders() {
     try {
-        const response = await axios.get("http://127.0.0.1:8000/api/v1/dashboard/sliders");
+        const response = await axios.get("http://127.0.0.1:8000/api/v1/sliders");
                 
         if (response.data && response.data.data) {
             return response.data.data;
@@ -15,7 +16,7 @@ export async function getAllSliders() {
             return [];
         }
     } catch (error) {
-        console.error("خطا در دریافت محصولات:", error);
+        console.error("خطا در دریافت اسلایدر ها:", error);
         throw error; 
     }
 }
