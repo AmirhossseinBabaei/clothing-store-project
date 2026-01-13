@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ProductController;
 use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\UserController;
-use App\Http\Controllers\Api\v1\ContactController;
+use App\Http\Controllers\Api\v1\ContactUsController;
 use App\Http\Controllers\Api\v1\SliderController;
 
 Route::get('user', function (Request $request) {
@@ -20,6 +20,7 @@ Route::prefix('v1')->group(function () {
 //    --------------------
 
 //    Website Data Routes
+
 //    Products
     Route::get('products', [ProductController::class, 'index']);
     Route::get('products/get-four-expensive-products', [ProductController::class, 'getTopFourExpensiveProducts']);
@@ -28,6 +29,8 @@ Route::prefix('v1')->group(function () {
     Route::get('categories', [CategoryController::class, 'index']);
 //    Sliders
     Route::get('sliders', [SliderController::class, 'index']);
+//    Contact Us
+    Route::post('contact-us/create-contact-us', [ContactUsController::class, 'createContactUs']);
 // ------------
 
 //    Dashboard Routes
@@ -52,7 +55,9 @@ Route::prefix('v1')->group(function () {
         Route::post('categories/{id}/update-category', [UserController::class, 'updateCategory']);
         Route::post('categories/{id}/delete-category', [UserController::class, 'destroyCategory']);
 //        Contacts
-        Route::get('contacts/get-contacts-count', [ContactController::class, 'getContactCount']);
-        Route::get('contacts', [ContactController::class, 'index']);
+        Route::get('contacts/get-contacts-count', [ContactUsController::class, 'getContactCount']);
+        Route::get('contacts', [ContactUsController::class, 'index']);
+        Route::post('contact-us/{id}/update-contact-us', [ContactUsController::class, 'updateContactUs']);
+        Route::post('contact-us/{id}/delete-contact-us', [ContactUsController::class, 'destroyContactUs']);
     });
 })->name('api.v1');

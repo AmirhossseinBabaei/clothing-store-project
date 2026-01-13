@@ -40,11 +40,11 @@ return [
                 'update_successfully_slider' => 'The slider updated successFully!',
                 'destroy_successfully_slider' => 'The slider deleted successFully!'
             ],
-            "contact" => [
-                "contact_empty" => 'The contact table is empty',
-                'create_successfully_contact' => 'The contact created successFully!',
-                'update_successfully_contact' => 'The contact updated successFully!',
-                'destroy_successfully_contact' => 'The contact deleted successFully!'
+            "contact_us" => [
+                "contact_us_empty" => 'The contact us table is empty',
+                'create_successfully_contact_us' => 'The contact us created successFully!',
+                'update_successfully_contact_us' => 'The contact us updated successFully!',
+                'destroy_successfully_contact_us' => 'The contact us deleted successFully!'
             ],
             "category" => [
                 "category_empty" => 'The category table is empty',
