@@ -61,3 +61,8 @@ Route::prefix('v1')->group(function () {
         Route::post('contact-us/{id}/delete-contact-us', [ContactUsController::class, 'destroyContactUs']);
     });
 })->name('api.v1');
+
+
+Route::get('send-email', function(){
+    \App\Events\SendEmailEvent::dispatch();
+});

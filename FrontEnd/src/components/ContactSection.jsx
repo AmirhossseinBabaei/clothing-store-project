@@ -1,6 +1,9 @@
 import React from "react";
 
 function ContactSection() {
+
+  console.log(document.getElementById('form'));
+
   return (
     <section className="w-full min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 py-16 px-6">
       <div className="max-w-6xl mx-auto">
@@ -14,12 +17,15 @@ function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-pink-100">
             <form
+            id="form"
               className="p-8 space-y-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("فرم ارسال شد (دموی فرانت).");
+              onSubmit={(event) => {
+                // console.log(event.value);
+                // alert("فرم ارسال شد (دموی فرانت).");
               }}
-            >
+              // action='https://127.0.0.1:8000/api/v1/contact-us/create-contact-us'
+             method="post"
+             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
