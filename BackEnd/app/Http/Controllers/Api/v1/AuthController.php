@@ -58,6 +58,6 @@ class AuthController extends Controller
         return response()->json([
             "data" => new AuthResource($user),
             "message" => __('messages.api.status_code.200')
-        ], StatusCode::INTERNAL_SERVER_ERROR->value);
+        ], StatusCode::OK->value);
     }
 }
