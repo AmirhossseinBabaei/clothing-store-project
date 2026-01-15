@@ -24,7 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'full_name' => fake()->name(),
-            'phone' => fake()->unique()->phoneNumber,
+            'phone' => fake()->phoneNumber,
             'password_hash' => static::$password ??= Hash::make('password')
         ];
     }
@@ -35,7 +35,7 @@ class UserFactory extends Factory
     public function unverified(): static
     {
         return $this->state(fn(array $attributes) => [
-            'email_verified_at' => null,
+            'phone_verified_at' => null,
         ]);
     }
 }
