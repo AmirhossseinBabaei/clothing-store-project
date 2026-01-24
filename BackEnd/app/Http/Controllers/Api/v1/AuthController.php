@@ -33,7 +33,6 @@ class AuthController extends Controller
                 "data" => [],
                 "message" => __('messages.api.status_code.500')
             ], StatusCode::INTERNAL_SERVER_ERROR->value);
-
         }
 
         return response()->json([
