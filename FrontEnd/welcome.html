@@ -3,64 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>لارا پورت - فریمورک PHP</title>
-    <link rel="stylesheet" href="welcome.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Laraport</title>
+    <style>
+        body {
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+        h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            flex-wrap: wrap; /_ برای ریسپانسیو شدن در صفحه‌های کوچک‌تر _/
+        }
+        .feature-item {
+            flex: 1;
+            min-width: 200px; /_ حداقل عرض برای هر آیتم _/
+            margin: 15px;
+            padding: 20px;
+            margin: 13px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .feature-item h3 {
+            margin-top: 0;
+            color: #0f172a;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .feature-item p {
+            font-size: 1em;
+            color: #475569;
+            line-height: 1.5;
+        }
+        a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #64748b;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="content">
-            <div class="logo-section">
-                <div class="logo">
-                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="60" cy="60" r="55" stroke="#ff2d20" stroke-width="4" fill="none"/>
-                        <path d="M30 60 L50 45 L50 60 L50 75 Z" fill="#ff2d20"/>
-                        <path d="M50 60 L70 45 L70 60 L70 75 Z" fill="#ff2d20"/>
-                        <path d="M70 60 L90 45 L90 60 L90 75 Z" fill="#ff2d20"/>
-                        <text x="60" y="95" text-anchor="middle" font-family="Vazirmatn" font-size="14" font-weight="bold" fill="#ff2d20">LP</text>
-                    </svg>
-                </div>
-                <h1 class="title">لارا پورت</h1>
-                <p class="subtitle">فریمورک قدرتمند PHP برای توسعه دهندگان</p>
-            </div>
+        <h1>Welcome to Laraport</h1>
+        <p>
+            Laraport is an php fremwork for your develops
+        </p>
 
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>سریع و بهینه</h3>
-                    <p>عملکرد بالا با معماری مدرن</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛠</div>
-                    <h3>ساده و قابل فهم</h3>
-                    <p>سینتکس تمیز و مستندات کامل</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>امن و قابل اعتماد</h3>
-                    <p>محافظت در برابر تهدیدات</p>
-                </div>
+        <div class="features">
+            <div class="feature-item">
+                <h3>Modern Develop</h3>
+                <p>Modern developing web pages</p>
             </div>
-
-            <div class="links">
-                <a href="https://laraport.dev/docs" class="btn btn-primary">مستندات</a>
-                <a href="https://laraport.dev/github" class="btn btn-secondary">گیت‌هاب</a>
+            <div class="feature-item">
+                <h3>Good Performance</h3>
+                <p>Good speed and performance</p>
             </div>
-
-            <div class="version">
-                <p>نسخه <strong>1.0.0</strong></p>
+            <div class="feature-item">
+                <h3>Clean Code</h3>
+                <p>Clean code and good structure</p>
             </div>
         </div>
 
         <div class="footer">
-            <p>ساخته شده با ❤️ توسط تیم لارا پورت</p>
+            <p>
+                Thanks for your select Laraport fremwork
+            </p>
+            <p>
+                <a href="#">Docs</a> | <a href="#">Contribute</a>
+            </p>
         </div>
     </div>
-
-    <script src="welcome.js"></script>
 </body>
 </html>
-
